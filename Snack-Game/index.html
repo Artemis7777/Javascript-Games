@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SNACK GAME</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/index.js"></script>
+</head>
+<body>
+<img src="./images/start.png" class='begin' alt="">
+<audio src="./media/bgm.ogg" class="play" loop></audio>
+<audio src="./media/GameOver.ogg" class="end"></audio>
+<audio src="./media/eat.ogg" class="eat"></audio>
+<script>
+    let oMap = new map();
+    let obj = {
+        width: 100,
+        height: 100,
+        headImg: './images/head.png',
+        bodyImg: './images/body.png',
+        oMap: oMap,
+    }
+    let gImg = document.querySelector('img');
+    let gAudio = document.querySelector('.play');
+    let gEnd = document.querySelector('.end');
+    let gEat = document.querySelector('.eat');
+    console.log(gImg, gAudio);
+
+    gImg.onclick = function () {
+        let food = new snakeFood(100, 100, './images/body.png', oMap);
+        food.render();
+        document.body.removeChild(gImg);
+        gAudio.play();
+        let oSnake = new snake(obj);
+        oSnake.render();
+        oSnake.update(food);
+    };
+
+    document.body.onkeydown = (event) => {
+        if (event.keyCode === 13) {
+            let food = new snakeFood(100, 100, './images/body.png', oMap);
+            food.render();
+            document.body.removeChild(gImg);
+            gAudio.play();
+            let oSnake = new snake(obj);
+            oSnake.render();
+            oSnake.update(food);
+        }
+    };
+</script>
+</body>
+</html>
